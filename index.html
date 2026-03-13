@@ -3,30 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>База знаний | Vao Trading</title>
+    <title>VAO TRADING | Data Terminal</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="crt-overlay"></div>
     <div class="app-container">
         <aside class="sidebar">
-            <h2>Разделы</h2>
+            <div class="brand">
+                <h1>VAO TRADING</h1>
+                <span class="subtitle">SYS.TERMINAL v2.0</span>
+            </div>
             <ul id="nav-list">
                 </ul>
         </aside>
 
         <main class="content">
-            <h1 id="category-title">Добро пожаловать</h1>
-            <p id="category-description">Выберите раздел в меню слева, чтобы открыть базу данных.</p>
+            <header class="content-header">
+                <div>
+                    <h2 id="category-title">Инициализация...</h2>
+                    <p id="category-description" class="glitch-text">Ожидание выбора сектора данных</p>
+                </div>
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="Поиск по архиву..." disabled>
+                </div>
+            </header>
+            
+            <div id="loader" class="loader hidden">Загрузка данных...</div>
             
             <div id="items-grid" class="grid"></div>
-
-            <div id="item-details" class="details-panel hidden">
-                <h3 id="detail-name"></h3>
-                <img id="detail-image" src="" alt="" class="hidden">
-                <p id="detail-text"></p>
-                <button id="close-details">Закрыть</button>
-            </div>
         </main>
+
+        <aside id="item-details" class="details-panel">
+            <button id="close-details" class="close-btn">×</button>
+            <div class="details-content">
+                <div class="details-header">
+                    <div id="detail-icon" class="detail-icon-large"></div>
+                    <h3 id="detail-name"></h3>
+                </div>
+                <img id="detail-image" src="" alt="" class="hidden">
+                <div class="details-body">
+                    <p id="detail-text"></p>
+                </div>
+            </div>
+        </aside>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
