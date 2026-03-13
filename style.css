@@ -1,118 +1,169 @@
 :root {
-    --bg-color: #0f111a;
-    --sidebar-bg: #1a1d29;
-    --text-color: #e0e6ed;
-    --accent: #00d2ff;
-    --item-bg: #262a3f;
+    --bg-base: #050508;
+    --panel-bg: rgba(12, 16, 28, 0.7);
+    --neon-blue: #00f3ff;
+    --neon-pink: #ff00ea;
+    --text-main: #c7d2fe;
+    --text-muted: #6366f1;
+    --border-color: rgba(0, 243, 255, 0.2);
 }
+
+* { box-sizing: border-box; }
 
 body, html {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    margin: 0; padding: 0;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: var(--bg-base);
+    color: var(--text-main);
     height: 100vh;
+    overflow: hidden;
 }
+
+/* Эффект старого монитора */
+.crt-overlay {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 4px, 6px 100%;
+    pointer-events: none; z-index: 100; opacity: 0.4;
+}
+
+/* Кастомный скроллбар */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-base); }
+::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--neon-blue); }
 
 .app-container {
-    display: flex;
-    height: 100vh;
+    display: flex; height: 100vh; position: relative; z-index: 1;
 }
 
+/* Сайдбар навигации */
 .sidebar {
-    width: 250px;
-    background-color: var(--sidebar-bg);
-    padding: 20px;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.5);
-    overflow-y: auto;
+    width: 280px;
+    background: var(--panel-bg);
+    backdrop-filter: blur(10px);
+    border-right: 1px solid var(--border-color);
+    display: flex; flex-direction: column;
 }
 
-#nav-list {
-    list-style: none;
-    padding: 0;
+.brand {
+    padding: 30px 20px;
+    border-bottom: 1px solid var(--border-color);
+    text-align: center;
 }
+
+.brand h1 {
+    margin: 0; font-size: 1.8rem;
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px rgba(255, 0, 234, 0.5);
+    letter-spacing: 2px;
+}
+
+.subtitle {
+    font-size: 0.8rem; color: var(--neon-blue);
+}
+
+#nav-list { list-style: none; padding: 20px 0; margin: 0; overflow-y: auto; }
 
 #nav-list li {
-    padding: 10px;
-    margin-bottom: 5px;
-    background-color: var(--item-bg);
-    cursor: pointer;
-    border-radius: 4px;
-    transition: 0.2s;
+    padding: 15px 20px; cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.3s ease;
+    text-transform: uppercase; font-weight: bold;
 }
 
-#nav-list li:hover {
-    background-color: var(--accent);
-    color: #000;
+#nav-list li:hover, #nav-list li.active {
+    background: rgba(0, 243, 255, 0.1);
+    border-left: 3px solid var(--neon-blue);
+    color: var(--neon-blue);
+    text-shadow: 0 0 8px var(--neon-blue);
 }
 
+/* Основной контент */
 .content {
-    flex: 1;
-    padding: 40px;
-    position: relative;
-    overflow-y: auto;
+    flex: 1; display: flex; flex-direction: column;
+    padding: 30px; overflow-y: auto;
 }
 
-.grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-top: 20px;
+.content-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 20px; margin-bottom: 20px;
 }
 
-/* Кнопки игровых элементов */
+h2#category-title { margin: 0; font-size: 2rem; color: #fff; text-transform: uppercase; }
+p#category-description { margin: 5px 0 0 0; color: var(--text-muted); }
+
+/* Поиск */
+.search-box input {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue);
+    padding: 10px 15px; border-radius: 4px;
+    font-family: inherit; width: 250px; outline: none;
+    transition: box-shadow 0.3s ease;
+}
+
+.search-box input:focus { box-shadow: 0 0 15px rgba(0, 243, 255, 0.4); }
+
+/* Сетка */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 20px; }
+
+/* Карточки элементов (Rim light эффект) */
 .game-item {
-    background-color: var(--item-bg);
-    border: 2px solid transparent;
-    border-radius: 8px;
-    padding: 20px;
-    text-align: center;
-    cursor: pointer;
-    width: 100px;
-    transition: 0.3s;
+    background: var(--panel-bg);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px; padding: 20px 10px;
+    text-align: center; cursor: pointer;
+    transition: all 0.3s ease; position: relative; overflow: hidden;
 }
 
-.game-item:hover {
-    border-color: var(--accent);
-    transform: translateY(-2px);
+.game-item::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    box-shadow: inset 0 0 0 0 var(--neon-blue); transition: all 0.4s ease;
+    border-radius: 8px; pointer-events: none;
 }
 
-.item-icon {
-    font-size: 2rem;
-    margin-bottom: 10px;
+.game-item:hover { transform: translateY(-5px); border-color: transparent; }
+
+.game-item:hover::before {
+    box-shadow: inset 0 0 20px rgba(0, 243, 255, 0.6), inset 0 0 5px var(--neon-blue);
 }
 
-/* Панель описания */
+.item-icon { font-size: 2.5rem; margin-bottom: 10px; filter: drop-shadow(0 0 5px rgba(255,255,255,0.3)); }
+.item-name { font-size: 0.9rem; font-weight: bold; }
+
+/* Боковая панель деталей */
 .details-panel {
-    margin-top: 30px;
-    padding: 20px;
-    background-color: var(--sidebar-bg);
-    border-left: 4px solid var(--accent);
-    border-radius: 4px;
+    position: fixed; top: 0; right: -400px;
+    width: 400px; height: 100vh;
+    background: rgba(8, 10, 15, 0.95);
+    backdrop-filter: blur(15px);
+    border-left: 2px solid var(--neon-pink);
+    box-shadow: -5px 0 20px rgba(255, 0, 234, 0.2);
+    transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 50; padding: 30px; overflow-y: auto;
 }
 
-.details-panel img {
-    max-width: 300px;
-    border-radius: 4px;
-    margin-top: 10px;
+.details-panel.open { right: 0; }
+
+.close-btn {
+    position: absolute; top: 20px; right: 20px;
+    background: none; border: none;
+    color: var(--text-main); font-size: 2rem;
+    cursor: pointer; transition: color 0.2s;
 }
 
-.hidden {
-    display: none;
-}
+.close-btn:hover { color: var(--neon-pink); }
 
-button#close-details {
-    margin-top: 15px;
-    background-color: transparent;
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    padding: 5px 15px;
-    cursor: pointer;
-    border-radius: 4px;
-}
+.details-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; margin-top: 20px;}
+.detail-icon-large { font-size: 3rem; }
+#detail-name { font-size: 1.8rem; margin: 0; color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
 
-button#close-details:hover {
-    background-color: var(--accent);
-    color: #000;
-}
+#detail-image { width: 100%; border-radius: 4px; border: 1px solid var(--border-color); margin-bottom: 20px; }
+.details-body { line-height: 1.6; color: #a5b4fc; font-size: 1.05rem; }
+
+.hidden { display: none !important; }
+.loader { color: var(--neon-blue); text-align: center; margin-top: 50px; font-size: 1.2rem; animation: pulse 1.5s infinite; }
+
+@keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
