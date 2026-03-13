@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>База знаний | Vao Trading</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <h2>Разделы</h2>
+            <ul id="nav-list">
+                </ul>
+        </aside>
+
+        <main class="content">
+            <h1 id="category-title">Добро пожаловать</h1>
+            <p id="category-description">Выберите раздел в меню слева, чтобы открыть базу данных.</p>
+            
+            <div id="items-grid" class="grid"></div>
+
+            <div id="item-details" class="details-panel hidden">
+                <h3 id="detail-name"></h3>
+                <img id="detail-image" src="" alt="" class="hidden">
+                <p id="detail-text"></p>
+                <button id="close-details">Закрыть</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
